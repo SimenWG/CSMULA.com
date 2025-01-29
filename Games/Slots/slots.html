@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSGO Slot Machine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            overflow: hidden;
+        }
+
+        .reel-container {
+            width: 120px;
+            height: 360px;
+            border: 3px solid #ffcc00;
+            border-radius: 10px;
+            background: #222;
+            position: relative;
+        }
+
+        .reel {
+            width: 100%;
+            animation: none;
+        }
+
+        .reel img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .spin-button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            color: #121212;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .spin-button:hover {
+            background: #ff9900;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        @keyframes spin {
+            0% {
+                top: 0;
+            }
+
+            25% {
+                top: -60px;
+            }
+
+            50% {
+                top: -120px;
+            }
+
+            75% {
+                top: -180px;
+            }
+
+            100% {
+                top: -240px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>CSGO Slot Machine</h1>
+
+    <div class="slot-machine">
+        <div class="reel-container">
+            <div class="reel" id="reel1"></div>
+        </div>
+        <div class="reel-container">
+            <div class="reel" id="reel2"></div>
+        </div>
+        <div class="reel-container">
+            <div class="reel" id="reel3"></div>
+        </div>
+    </div>
+
+    <button class="spin-button" onclick="spin(5)">5€ to Spin</button>
+    <button class="spin-button" onclick="spin(15)">15€ to Spin</button>
+
+    <div class="message" id="message">Good Luck!</div>
+
+    <script>
+        const items = [
+            { name: "AWP", image: "awp.png", price: .8, chance: 16.6 },
+            { name: "SMG", image: "smg.png", price: 0.05, chance: 16.6 },
+            { name: "AK-47", image: "Ak-47.png", price: 1.2, chance: 16.6 },
+            { name: "M4A4", image: "m4a4.png", price: 0.32, chance: 16.6 },
+            { name: "M4A1-S", image: "m4a1s.png", price: 0.44, chance: 16.6 },
+            { name: "Knife", image: "knife.png", price: 10000, chance: 16.6 }
+        ];
+
+        function getWeightedRandomItem(chanceMultiplier) {
+            let totalWeight = items.reduce((sum, item) => {
+                // If the item is "Knife", boost its chance
+                if (item.name === "Knife") {
+                    return sum + item.chance * chanceMultiplier;
+                }
+                return sum + item.chance;
+            }, 0);
+
+            let random = Math.random() * totalWeight;
+
+            for (let item of items) {
+                let itemChance = item.chance;
+                // If the item is "Knife", apply the chance multiplier
+                if (item.name === "Knife") {
+                    itemChance *= chanceMultiplier;
+                }
+
+                if (random < itemChance) {
+                    return item.image;
+                }
+                random -= itemChance;
+            }
+        }
+
+        function spin(amount) {
+            let message = document.getElementById('message');
+            message.textContent = "Spinning...";
+
+            // Increase the chances when the user spins for 15€
+            let chanceMultiplier = 1;
+            if (amount === 15) {
+                chanceMultiplier = 7.5; // Boost chances by 5%
+            }
+
+            let reel1 = document.getElementById('reel1');
+            let reel2 = document.getElementById('reel2');
+            let reel3 = document.getElementById('reel3');
+
+            reel1.style.animation = "spin 1.5s ease-out forwards";
+            reel2.style.animation = "spin 2s ease-out forwards";
+            reel3.style.animation = "spin 2.5s ease-out forwards";
+
+            setTimeout(() => {
+                reel1.innerHTML = `<img src="./${getWeightedRandomItem(chanceMultiplier)}" alt="item1">`;
+                setTimeout(() => {
+                    reel2.innerHTML = `<img src="./${getWeightedRandomItem(chanceMultiplier)}" alt="item2">`;
+                    setTimeout(() => {
+                        reel3.innerHTML = `<img src="./${getWeightedRandomItem(chanceMultiplier)}" alt="item3">`;
+                        checkWin();
+                    }, 500);
+                }, 500);
+            }, 500);
+        }
+
+        function checkWin() {
+            let message = document.getElementById('message');
+            let reel1 = document.getElementById('reel1').querySelector('img').src;
+            let reel2 = document.getElementById('reel2').querySelector('img').src;
+            let reel3 = document.getElementById('reel3').querySelector('img').src;
+
+            if (reel1 === reel2 && reel2 === reel3) {
+                let winningItem = items.find(item => reel1.includes(item.image.split('/').pop()));
+
+                if (winningItem.name === "Knife") {
+                    message.textContent = "🎉 JACKPOT! You won a Knife worth €10,000!";
+                } else {
+                    message.textContent = `😮 You won three ${winningItem.name}s worth €${(winningItem.price * 3).toFixed(2)}!`;
+                }
+            } else {
+                message.textContent = "❌ You lost! Try again!";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up / Log In - CSMULA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #222;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: gold;
+            color: black;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c5a900;
+        }
+
+        .link {
+            color: gold;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sign Up / Log In</h1>
+    
+    <div class="container" id="signup">
+        <h3>Create an account</h3>
+        <input type="email" id="signup-email" placeholder="Enter your email" required>
+        <input type="password" id="signup-password" placeholder="Enter your password" required>
+        <button onclick="signUp()">Sign Up</button>
+        <p>Already have an account? <a href="#" class="link" onclick="toggleForms()">Log In</a></p>
+    </div>
+
+    <div class="container" id="login" style="display: none;">
+        <h3>Log In</h3>
+        <input type="email" id="login-email" placeholder="Enter your email" required>
+        <input type="password" id="login-password" placeholder="Enter your password" required>
+        <button onclick="logIn()">Log In</button>
+        <p>Don't have an account? <a href="#" class="link" onclick="toggleForms()">Sign Up</a></p>
+    </div>
+
+    <!-- Firebase Authentication -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAUYHtLQpOe0voAX51HDTjarmRxXREYh84",
+            authDomain: "csmula-login.firebaseapp.com",
+            projectId: "csmula-login",
+            storageBucket: "csmula-login.appspot.com",
+            messagingSenderId: "592933661114",
+            appId: "1:592933661114:web:690068b0594c804de89583"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        window.signUp = function () {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Sign Up Successful!");
+                    window.location.href = 'index.html'; // Redirect after sign up
+                })
+                .catch((error) => {
+                    console.error("Sign Up Error:", error.message);
+                    alert("Error: " + error.message);
+                });
+        };
+
+        window.logIn = function () {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Log In Successful!");
+                    window.location.href = 'index.html'; // Redirect after login
+                })
+                .catch((error) => {
+                    console.error("Log In Error:", error.message);
+                    alert("Error: " + error.message);
+                });
+        };
+
+        window.toggleForms = function () {
+            document.getElementById("signup").style.display = document.getElementById("signup").style.display === "none" ? "block" : "none";
+            document.getElementById("login").style.display = document.getElementById("login").style.display === "none" ? "block" : "none";
+        };
+    </script>
+
+</body>
+</html>

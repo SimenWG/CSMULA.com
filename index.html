@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSMULA - CSGO Gambling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        header {
+            background-color: #111;
+            padding: 20px;
+            text-align: center;
+            color: gold;
+        }
+
+        header .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 10px;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        header nav ul li a:hover {
+            color: gold;
+        }
+
+        .user-info {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: gold;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background-color: #222;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: gold;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        .cta-button {
+            background-color: gold;
+            color: black;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background-color: #c5a900;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px 20px;
+            text-align: center;
+            background-color: #333;
+        }
+
+        .feature-item {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            width: 30%;
+        }
+
+        .feature-item h3 {
+            font-size: 1.5rem;
+            color: gold;
+        }
+
+        footer {
+            background-color: #111;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: gold;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">CSMULA.com</div>
+        <div id="user-info" class="user-info"></div> <!-- User email will be displayed here -->
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="./games/games">Games</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="profile.html">Account</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to CSMULA!</h1>
+        <p>Your Ultimate CSGO Gambling Destination</p>
+        <button id="join-btn" class="cta-button" onclick="window.location.href = 'signup.html';">Join Now</button>
+        <button id="logout-btn" class="cta-button" style="display:none;" onclick="logOut()">Log Out</button>
+    </section>
+
+    <section class="features">
+        <h2>Features</h2>
+        <div class="feature-item">
+            <h3>Fair & Secure Betting</h3>
+            <p>Play with confidence using our provably fair system.</p>
+        </div>
+        <div class="feature-item">
+            <h3>Variety of Games</h3>
+            <p>Roulette, Crash, Coinflip, and more to keep you entertained.</p>
+        </div>
+        <div class="feature-item">
+            <h3>Exclusive Rewards</h3>
+            <p>Join today to get special bonuses and promotions!</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 CSMULA.com. All Rights Reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAUYHtLQpOe0voAX51HDTjarmRxXREYh84",
+            authDomain: "csmula-login.firebaseapp.com",
+            projectId: "csmula-login",
+            storageBucket: "csmula-login.appspot.com",
+            messagingSenderId: "592933661114",
+            appId: "1:592933661114:web:690068b0594c804de89583"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Function to update UI based on login state
+        function updateUI(user) {
+            const userInfoDiv = document.getElementById("user-info");
+            const joinBtn = document.getElementById("join-btn");
+            const logoutBtn = document.getElementById("logout-btn");
+
+            if (user) {
+                userInfoDiv.innerHTML = `Logged in as: <strong>${user.email}</strong>`;
+                joinBtn.style.display = "none"; // Hide Join Now button
+                logoutBtn.style.display = "inline-block"; // Show logout button
+            } else {
+                userInfoDiv.innerHTML = "You are not logged in.";
+                joinBtn.style.display = "inline-block"; // Show Join Now button
+                logoutBtn.style.display = "none"; // Hide logout button
+            }
+        }
+
+        // Check if user is logged in
+        onAuthStateChanged(auth, (user) => {
+            updateUI(user);
+        });
+
+        // Logout function
+        window.logOut = function() {
+            signOut(auth).then(() => {
+                alert("Logged out successfully!");
+                updateUI(null);
+                window.location.reload(); // Reload page after logout
+            }).catch((error) => {
+                console.error("Logout Error:", error.message);
+                alert("Error: " + error.message);
+            });
+        };
+    </script>
+
+</body>
+</html>
