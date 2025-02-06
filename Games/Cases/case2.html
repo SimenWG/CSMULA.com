@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Opening - CSmula</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="case-page">
+    <div class="container">
+        <div class="balance-container">
+            <h2>Balance: <span id="balance">$1000</span></h2>
+        </div>
+        <h1>Case Opening</h1>
+        <div class="case-info">
+            <p>Case Price: $<span id="casePrice">25</span></p>
+        </div>
+        <div class="case" id="case">
+            <div class="pointer"></div>
+            <div class="items" id="items"></div>
+        </div>
+        <button id="openCaseButton">Open Case</button>
+        <div class="showcase" id="showcase">
+            <h2 id="showcaseName"></h2>
+            <p id="showcaseFloat"></p>
+            <img id="showcaseImage" src="" alt="">
+            <p>Value: <span id="itemPrice">$0</span></p>
+            <div class="showcase-buttons">
+                <button id="sellButton" class="sell-button">Sell</button>
+                <button id="keepButton" class="keep-button">Keep</button>
+            </div>
+        </div>
+        <button class="back-home" onclick="window.location.href='casesmain.html'">Back to Home</button>
+    </div>
+
+    <script src="awp.js"></script>
+</body>
+</html>

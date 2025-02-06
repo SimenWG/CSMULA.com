@@ -1,0 +1,375 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+    color: gold;
+}
+
+header .logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 10px;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+header nav ul li a:hover {
+    color: gold;
+}
+
+.user-info {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: gold;
+}
+
+
+h1, h2 {
+    color: gold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                 1px 1px 0 #000;
+}
+
+.container {
+    margin-top: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    background: linear-gradient(145deg, #1c1c1c, #262626);
+    border-radius: 15px;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Case Spinner Styles */
+.case {
+    width: 600px;
+    height: 150px;
+    margin: 20px auto;
+    overflow: hidden;
+    background-color: rgba(34, 34, 34, 0.9);
+    position: relative;
+    border-radius: 15px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.items {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: left 2s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.item {
+    width: 120px;
+    height: 150px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--rarity-color) 0%, var(--rarity-color-light) 50%, var(--rarity-color) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.item:hover {
+    transform: translateY(-2px);
+}
+
+.item img {
+    max-width: 90%;
+    max-height: 90%;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Updated rarity colors with more vibrant gradients */
+.item.rarity-common { --rarity-color: #4a4a4a; --rarity-color-light: #7a7a7a; }
+.item.rarity-uncommon { --rarity-color: #175f17; --rarity-color-light: #32a852; }
+.item.rarity-rare { --rarity-color: #153a8c; --rarity-color-light: #2e6de6; }
+.item.rarity-mythical { --rarity-color: #4b1b87; --rarity-color-light: #9332e6; }
+.item.rarity-legendary { --rarity-color: #a34c00; --rarity-color-light: #ff7700; }
+.item.rarity-ancient { --rarity-color: #8b0000; --rarity-color-light: #ff1a1a; }
+.item.rarity-exotic { --rarity-color: #b8860b; --rarity-color-light: #ffd700; }
+
+.pointer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+        rgba(255, 0, 0, 0.8) 0%,
+        rgba(255, 0, 0, 1) 50%,
+        rgba(255, 0, 0, 0.8) 100%);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* Showcase Styles */
+.showcase {
+    margin-top: 20px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    display: none;
+    background: linear-gradient(135deg, var(--rarity-color) 0%, var(--rarity-color-light) 50%, var(--rarity-color) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.showcase:hover {
+    transform: translateY(-2px);
+}
+
+.showcase img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.showcase h2, .showcase p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                 1px 1px 0 #000;
+    margin: 10px 0;
+}
+
+/* Button Styles */
+button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(145deg, #333333, #444444);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+button:disabled {
+    background: linear-gradient(145deg, #272727, #333333);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+button:hover:enabled {
+    background: linear-gradient(145deg, #444444, #555555);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Homepage Styles */
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+    padding: 20px;
+}
+
+.homepage h1 {
+    font-size: 4rem;
+    margin-bottom: 40px;
+    background: linear-gradient(to right, #ffd700, #ffa500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.homepage .cases {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+.homepage .cases a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 280px;
+    background: linear-gradient(145deg, #1c1c1c, #262626);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    padding: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.homepage .cases a:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.homepage .cases a img {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.homepage .cases a:hover img {
+    transform: scale(1.05);
+}
+
+/* Case Page Styles */
+.case-page {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/case-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.case-page .container {
+    background: linear-gradient(145deg, rgba(28, 28, 28, 0.95), rgba(38, 38, 38, 0.95));
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+.back-home {
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: linear-gradient(145deg, #333333, #444444);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.back-home:hover {
+    background: linear-gradient(145deg, #444444, #555555);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Balance Display */
+.balance-container {
+    background: linear-gradient(145deg, #1c1c1c, #262626);
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.balance-container h2 {
+    margin: 0;
+    color: #ffd700;
+    font-size: 1.5rem;
+}
+
+.case-info {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+/* Showcase Buttons */
+.showcase-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.sell-button, .keep-button {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sell-button {
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.sell-button:hover {
+    background: linear-gradient(145deg, #45a049, #3d8b40);
+    transform: translateY(-2px);
+}
+
+.keep-button {
+    background: linear-gradient(145deg, #2196F3, #1e88e5);
+    color: white;
+}
+
+.keep-button:hover {
+    background: linear-gradient(145deg, #1e88e5, #1976d2);
+    transform: translateY(-2px);
+}
+
+#itemPrice {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
